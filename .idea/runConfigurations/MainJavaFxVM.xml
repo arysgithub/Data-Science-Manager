@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MainJavaFxVM" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.example.courseworkManager.Main" />
+    <module name="Coursework1.main" />
+    <option name="VM_PARAMETERS" value="--module-path &quot;$USER_HOME$/javafx-sdk-21.0.7/lib&quot; --add-modules javafx.controls,javafx.fxml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
