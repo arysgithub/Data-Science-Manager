@@ -6,11 +6,17 @@ import javafx.stage.Window;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+/**
+ * Exports the current dataset from DataModel into either
+ * CSV or JSON format using a file chooser. Headers preserved.
+ */
 
 public class DataExporter {
 

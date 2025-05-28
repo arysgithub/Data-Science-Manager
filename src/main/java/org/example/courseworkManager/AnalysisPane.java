@@ -4,7 +4,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 import java.util.*;
+
+/**
+ * AnalysisPane is a VBox that provides tools to:
+ * 1. Calculate Pearson correlation between two numeric columns.
+ * 2. Generate summary statistics for all columns.
+ */
 
 public class AnalysisPane extends VBox {
     private final DataModel dataModel;
@@ -51,6 +58,9 @@ public class AnalysisPane extends VBox {
         updateColumns();
     }
 
+    /**
+     * Updates both dropdowns with current column names from the dataset.
+     */
     private void updateColumns() {
         List<String> columns = dataModel.getColumnNames();
         column1ComboBox.getItems().setAll(columns);
@@ -62,6 +72,10 @@ public class AnalysisPane extends VBox {
         }
     }
 
+    /**
+     * Calculates Pearson's correlation coefficient between two numeric columns.
+     * Uses Apache Commons Math.
+     */
     private void calculateCorrelation() {
         String col1 = column1ComboBox.getValue();
         String col2 = column2ComboBox.getValue();
@@ -74,6 +88,7 @@ public class AnalysisPane extends VBox {
         List<Double> values1 = new ArrayList<>();
         List<Double> values2 = new ArrayList<>();
 
+        // Extract and validate numeric values from both columns
         for (Map<String, Object> row : dataModel.getData()) {
             Object val1 = row.get(col1);
             Object val2 = row.get(col2);
@@ -89,9 +104,11 @@ public class AnalysisPane extends VBox {
             return;
         }
 
+        // Convert to primitive arrays for library function
         double[] array1 = values1.stream().mapToDouble(Double::doubleValue).toArray();
         double[] array2 = values2.stream().mapToDouble(Double::doubleValue).toArray();
 
+        // Calculate Pearson correlation
         PearsonsCorrelation correlation = new PearsonsCorrelation();
         double correlationValue = correlation.correlation(array1, array2);
 
@@ -105,6 +122,12 @@ public class AnalysisPane extends VBox {
                 col1, col2, correlationValue));
     }
 
+    /**
+     * Generates a summary of all columns in the dataset including:
+     * - Count of values and nulls
+     * - Basic descriptive stats for numeric columns
+     * - Unique values count for non-numeric
+     */
     private void generateSummary() {
         StringBuilder summary = new StringBuilder();
 
@@ -150,6 +173,9 @@ public class AnalysisPane extends VBox {
         resultArea.setText(summary.toString());
     }
 
+    /**
+     * Displays a basic error dialog with a given message.
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

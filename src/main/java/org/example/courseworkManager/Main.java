@@ -7,9 +7,13 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+
 import java.util.Optional;
 
-
+/**
+ * Entry point for the JavaFX-based Data Management Tool application.
+ * This class sets up the GUI, integrates the data model, and defines user interaction features.
+ */
 
 public class Main extends Application {
 
@@ -39,7 +43,7 @@ public class Main extends Application {
         analysisTab.setContent(new AnalysisPane(dataModel));
         analysisTab.setClosable(false);
 
-        // Visualization Tab
+        // Visualization Tab for plotting data charts
         Tab visualizationTab = new Tab("Visualization");
         visualizationTab.setContent(new VisualisationPane(dataModel));
         visualizationTab.setClosable(false);
@@ -54,10 +58,13 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Builds the top menu bar with File, Edit, and Help menus.
+     */
     private MenuBar createMenuBar() {
         MenuBar menuBar = new MenuBar();
 
-        // File Menu
+        // File Menu - for importing/exporting/closing app
         Menu fileMenu = new Menu("File");
         MenuItem importItem = new MenuItem("Import Data...");
         importItem.setOnAction(e -> DataImporter.importData(dataModel));
@@ -67,7 +74,7 @@ public class Main extends Application {
         exitItem.setOnAction(e -> System.exit(0));
         fileMenu.getItems().addAll(importItem, exportItem, new SeparatorMenuItem(), exitItem);
 
-        // Edit Menu
+        // Edit Menu - clear data from app
         Menu editMenu = new Menu("Edit");
         MenuItem clearItem = new MenuItem("Clear Data");
         clearItem.setOnAction(e -> dataModel.clearData());
@@ -83,6 +90,10 @@ public class Main extends Application {
         return menuBar;
     }
 
+
+    /**
+     * Shows a dialog allowing the user to sort data by a selected column and direction.
+     */
     private void showSortDialog() {
         Dialog<String[]> dialog = new Dialog<>();
         dialog.setTitle("Sort Data");
@@ -105,6 +116,7 @@ public class Main extends Application {
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Convert result from user into values for sorting
         dialog.setResultConverter(buttonType -> {
             if (buttonType == ButtonType.OK) {
                 return new String[]{columnCombo.getValue(), directionCombo.getValue()};
@@ -121,6 +133,9 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * Shows a dialog to perform an aggregation (SUM, AVERAGE, COUNT) on grouped data.
+     */
     private void showAggregateDialog() {
         Dialog<String[]> dialog = new Dialog<>();
         dialog.setTitle("Aggregate Data");

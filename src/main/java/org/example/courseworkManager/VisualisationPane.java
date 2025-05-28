@@ -13,6 +13,10 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import java.util.*;
 
+/**
+ * This pane allows the user to select data columns and chart types
+ * (scatter, line, bar, histogram) to visually represent the dataset using JFreeChart.
+ */
 public class VisualisationPane extends VBox {
     private final DataModel dataModel;
     private final ComboBox<String> xAxisComboBox;
@@ -38,6 +42,7 @@ public class VisualisationPane extends VBox {
         }
     }
 
+    // Constructor sets up UI controls, event listeners, and binds to data changes
     public VisualisationPane(DataModel dataModel) {
         this.dataModel = dataModel;
         this.setSpacing(10);
@@ -68,7 +73,7 @@ public class VisualisationPane extends VBox {
         getChildren().addAll(controlsBox, chartViewer);
 
         // Update columns when data changes
-  //      dataModel.getData().addListener((javafx.collections.ListChangeListener.Change<?> c) -> {
+        //      dataModel.getData().addListener((javafx.collections.ListChangeListener.Change<?> c) -> {
 //            updateColumns(); });
         // Update columns when data changes using DataModel listener
         dataModel.addListener(() -> {
@@ -81,6 +86,7 @@ public class VisualisationPane extends VBox {
         updateColumns();
     }
 
+    // Updates the dropdowns for column selections when the data changes
     private void updateColumns() {
         List<String> columns = dataModel.getColumnNames();
         xAxisComboBox.getItems().setAll(columns);
@@ -92,6 +98,7 @@ public class VisualisationPane extends VBox {
         }
     }
 
+    // Handles logic for determining which chart to generate based on user selection
     private void createChart() {
         String xColumn = xAxisComboBox.getValue();
         String yColumn = yAxisComboBox.getValue();
@@ -124,6 +131,7 @@ public class VisualisationPane extends VBox {
         }
     }
 
+    // Generates a scatter plot using two numeric columns
     private JFreeChart createScatterPlot(String xColumn, String yColumn) {
         XYSeries series = new XYSeries("Data");
 
@@ -144,6 +152,7 @@ public class VisualisationPane extends VBox {
         );
     }
 
+    // Generates a line chart (x-axis is sorted)
     private JFreeChart createLineChart(String xColumn, String yColumn) {
         XYSeries series = new XYSeries("Data");
 
@@ -171,6 +180,7 @@ public class VisualisationPane extends VBox {
         );
     }
 
+    // Aggregates values and displays them in a bar chart grouped by a selected column
     private JFreeChart createBarChart(String xColumn, String yColumn) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -197,6 +207,7 @@ public class VisualisationPane extends VBox {
         );
     }
 
+    // Creates a histogram of numeric data in the selected column
     private JFreeChart createHistogram(String column) {
         List<Double> values = new ArrayList<>();
 
@@ -226,6 +237,7 @@ public class VisualisationPane extends VBox {
         );
     }
 
+    // Displays error dialog for invalid inputs or empty data
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

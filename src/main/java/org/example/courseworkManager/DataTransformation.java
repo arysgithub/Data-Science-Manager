@@ -1,9 +1,8 @@
 package org.example.courseworkManager;
- //Interface for data transformations
-import java.util.List;
-import java.util.Map;
+//Interface for data transformations
 
 public interface DataTransformation {
     void apply(DataModel model);
+
     String getDescription();
 }

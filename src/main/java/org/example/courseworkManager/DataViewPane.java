@@ -6,15 +6,23 @@ import javafx.scene.layout.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
+
 import java.util.Map;
 import java.util.Optional;
+
 import javafx.geometry.Insets;
+
+/**
+ * This pane provides an editable TableView and a toolbar
+ * for data cleaning, transformation, statistics, undo/redo.
+ */
 
 public class DataViewPane extends VBox {
     private final DataModel dataModel;
     private final TableView<Map<String, Object>> tableView;
     private final ToolBar toolbar;
 
+    // Constructor sets up layout, binds to data, and listens for data changes
     public DataViewPane(DataModel dataModel) {
         this.dataModel = dataModel;
         this.setSpacing(10);
@@ -29,7 +37,7 @@ public class DataViewPane extends VBox {
         tableView.setEditable(true);
         tableView.setItems(dataModel.getData());
 
-         dataModel.addListener(() -> {
+        dataModel.addListener(() -> {
             tableView.setItems(dataModel.getData()); // rebind to new ObservableList
             updateColumns();                         // rebuild columns
             tableView.refresh();                     // repaint
@@ -39,6 +47,7 @@ public class DataViewPane extends VBox {
         VBox.setVgrow(tableView, Priority.ALWAYS);
     }
 
+    // Creates the toolbar with buttons for clean, transform, analyze, history actions
     private ToolBar createToolbar() {
         ToolBar toolbar = new ToolBar();
 
@@ -78,7 +87,7 @@ public class DataViewPane extends VBox {
             TableColumn<Map<String, Object>, ?> selectedColumn = tableView.getFocusModel().getFocusedCell().getTableColumn();
             if (selectedColumn != null) {
                 showStatistics(selectedColumn.getText());
-              //  String selectedColumn = getSelectedColumn();
+                //  String selectedColumn = getSelectedColumn();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("No Column Selected");
@@ -95,7 +104,7 @@ public class DataViewPane extends VBox {
         redoBtn.setOnAction(e -> dataModel.redo());
 
 
-            // Add separators between sections
+        // Add separators between sections
         toolbar.getItems().addAll(
                 cleaningLabel,
                 removeNullsBtn,
@@ -112,9 +121,11 @@ public class DataViewPane extends VBox {
                 historyLabel,
                 undoBtn,
                 redoBtn
-        );        return toolbar;
+        );
+        return toolbar;
     }
 
+    // Displays filter dialog to apply a filter transformation to the data
     private void showFilterDialog() {
         Dialog<String[]> dialog = new Dialog<>();
         dialog.setTitle("Filter Data");
@@ -161,6 +172,7 @@ public class DataViewPane extends VBox {
         });
     }
 
+    // Displays sort dialog to sort the data by selected column and order
     private void showSortDialog() {
         Dialog<String[]> dialog = new Dialog<>();
         dialog.setTitle("Sort Data");
@@ -200,6 +212,7 @@ public class DataViewPane extends VBox {
         });
     }
 
+    // Displays aggregation dialog to group and summarize data
     private void showAggregateDialog() {
         Dialog<String[]> dialog = new Dialog<>();
         dialog.setTitle("Aggregate Data");
@@ -251,6 +264,7 @@ public class DataViewPane extends VBox {
         });
     }
 
+    // Updates TableView columns dynamically based on current dataset
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -258,6 +272,7 @@ public class DataViewPane extends VBox {
         alert.showAndWait();
     }
 
+    // Returns the name of the selected column in the TableView
     private void updateColumns() {
         tableView.getColumns().clear();
 
@@ -298,11 +313,13 @@ public class DataViewPane extends VBox {
         }
     }
 
+    // Displays statistics (count, mean, median, etc.) for a selected numeric column
     private String getSelectedColumn() {
         TableColumn<Map<String, Object>, ?> column = tableView.getFocusModel().getFocusedCell().getTableColumn();
         return column != null ? column.getText() : null;
     }
 
+    // Manually forces update of table columns and refreshes data view
     private void showStatistics(String column) {
         Map<String, Object> stats = dataModel.getBasicStats(column);
         if (!stats.isEmpty()) {
@@ -324,6 +341,7 @@ public class DataViewPane extends VBox {
             alert.showAndWait();
         }
     }
+
     public void forceUpdateTables() {
         updateColumns();
         tableView.refresh();
