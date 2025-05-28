@@ -86,6 +86,14 @@ public class DataViewPane extends VBox {
                 alert.showAndWait();
             }
         });
+        //undo and redo selection
+        Label historyLabel = new Label("History:");
+        Button undoBtn = new Button("Undo");
+        undoBtn.setOnAction(e -> dataModel.undo());
+
+        Button redoBtn = new Button("Redo");
+        redoBtn.setOnAction(e -> dataModel.redo());
+
 
             // Add separators between sections
         toolbar.getItems().addAll(
@@ -99,7 +107,11 @@ public class DataViewPane extends VBox {
                 aggregateBtn,
                 new Separator(),
                 statsLabel,
-                showStatsBtn
+                showStatsBtn,
+                new Separator(),
+                historyLabel,
+                undoBtn,
+                redoBtn
         );        return toolbar;
     }
 

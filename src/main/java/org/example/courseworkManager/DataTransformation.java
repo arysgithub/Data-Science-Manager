@@ -1,10 +1,9 @@
 package org.example.courseworkManager;
-
+ //Interface for data transformations
 import java.util.List;
 import java.util.Map;
 
 public interface DataTransformation {
-    List<Map<String, Object>> apply(List<Map<String, Object>> data);
-    String getName();
+    void apply(DataModel model);
     String getDescription();
 }

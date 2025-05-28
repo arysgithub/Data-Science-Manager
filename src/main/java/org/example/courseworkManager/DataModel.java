@@ -90,8 +90,9 @@ public class DataModel {
 
     public void applyTransformation(DataTransformation transformation) {
         saveState();
-        List<Map<String, Object>> transformedData = transformation.apply(new ArrayList<>(data));
-        data.setAll(transformedData);
+      //  List<Map<String, Object>> transformedData = transformation.apply(new ArrayList<>(data));
+      //  data.setAll(transformedData);
+        transformation.apply(this);  // Pass the whole DataModel to let the transformation modify it
         notifyListeners();
     }
 

@@ -1,6 +1,5 @@
 package org.example.courseworkManager;
 
-
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
