@@ -99,6 +99,16 @@ This JavaFX-based coursework allows users to load, manipulate, analyse, and visu
 - **Factory Pattern**: `TransformationFactory.java` dynamically creates `DataTransformation` implementations based on input.
 
 ---
+## Application Screenshots 
+
+<img width="1498" height="410" alt="management 4" src="https://github.com/user-attachments/assets/8851287a-d6ea-4d25-ac2f-ffc9e553af4a" />
+<img width="1497" height="610" alt="management 3" src="https://github.com/user-attachments/assets/df1ed09b-5be9-4f67-bf68-bf3f164e5920" />
+<img width="1486" height="567" alt="management 2" src="https://github.com/user-attachments/assets/5f1091d0-e453-42cd-a283-b9ca15a01357" />
+<img width="1498" height="757" alt="management 1" src="https://github.com/user-attachments/assets/cc7ff344-07c1-4dd9-9fc4-8b49e69b52ca" />
+<img width="1496" height="965" alt="management 5" src="https://github.com/user-attachments/assets/07755b5f-2345-4a65-8186-47eff40c4904" />
+
+
+---
 
 ## 📘 Assumptions
 
@@ -290,6 +300,6 @@ classDiagram
 - For Gradle sync issues, try `File -> Invalidate Caches / Restart`
 - If JavaFX libraries are missing, add the following to your build.gradle
 
- **Actual Hours Spent**: 42 
+ **Actual Hours Spent Total**: 55
  **Artificial Intelligence Tools Used**: Chat GPT for design pattern implementation 
  MIT Licensed
