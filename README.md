@@ -1,5 +1,18 @@
-# Data-Science-Manager
+# 📊 Data-Science-Manager
 This project allows users to load csv and json files, manipulate, analyse, and visualise data from the files and then export them, through an intuitive chart GUI
+
+## 📌 Project Overview
+
+This JavaFX-based application allows users to **load**, **manipulate**, **analyse**, and **visualise** tabular data through a clean and intuitive user interface.
+
+It incorporates:
+- **Singleton Pattern**: To ensure a single source of truth for application configuration.
+- **Observer Pattern**: To notify UI components when the underlying data changes.
+- **Factory Pattern**: For creating various types of data transformations dynamically.
+
+Features include dynamic table rendering, undo/redo support, real-time statistics, and chart visualisation using **JFreeChart**. A suite of **JUnit 5** unit tests has been added for validating core functionality.
+
+---
 
 ## 1. Introduction
 
@@ -8,66 +21,103 @@ The project uses the design patterns Singleton to maintain consistent applicatio
 Observer to update UI components on data changes and Factory to instantiate transformation objects.
 The system has a responsive UI, dynamic table generation, real-time statistics and chart visualisations powered by JFree Chart.
 Included is JUnit tests for all core components of the system  
-### Features:
+## ✅ Key Features
 
-1. **Data Import/Export**: 
-    - Support for CSV and JSON file formats with automatic type detection, validation and error handling
+### 📂 Data Import & Export
+- Supports **CSV** and **JSON** formats
+- Automatic type detection, validation & error handling
 
-2. **Data Transformation**:
-    - Filtering
-    - Sorting
-    - Aggregation (Sum, Average, Count)
+### 🔧 Data Transformation
+- Filtering rows by condition
+- Sorting columns (ascending/descending)
+- Aggregation (Sum, Average, Count)
+- Full **undo/redo** history for transformation actions
 
-3. **Data CLeaning**:
-    - Null value removal
-    - Duplicate removal
-    - Analyse Statistics for specific rows
+### 🧹 Data Cleaning
+- Null value removal
+- Duplicate row removal
+- Column statistics inspection
 
-4. **Data Analysis**:
-    - Summary Statistics
-    - Mean, Median, SD, Count, Min/Max calculations
-    - Pearson correlation
+### 📈 Data Analysis
+- Summary statistics (Mean, Median, Standard Deviation, Min, Max)
+- Pearson correlation coefficient between columns
 
-5. **Data Charts**:
-    - Scatter
-    - Line chart
-    - Bar charts
-    - Histograms
+### 📊 Data Visualisation
+- Chart types: **Scatter**, **Line**, **Bar**, **Histogram**
+- Chart generation via JFreeChart
 
-6. **Undo/Redo Support**: 
-    - Complete transformation history management
+### 🖥️ User Interface
+- Tab-based UI:
+  - **Data View**
+  - **Analysis**
+  - **Visualisation**
+- Live updates via observer pattern
+- Intuitive controls and responsive layout
 
-7. **Modern UI**: Tab-based interface for:
-    - Data viewing and editing
-    - Analysis
-    - Visualization
+---
 
-### How to use
-1. **Importing Data**
-    - Click File -> Import Data
-    - Select a CSV or JSON file
+## 💻 Usage Guide
 
-2. **Clean/Transform Data**
-   - Remove null values
-   - Remove duplicates
-   - View column statistics
-   - Apply transformations
-   - Undo/Redo
+### 📁 Import Data
+- `File` → `Import Data` → Select `.csv` or `.json` file
 
-3. **Data Analysis**
-    - Switch to the Analysis tab
-    - Select columns for analysis
-    - Calculate correlation
-    - Generate summary statistics
+### 🧽 Clean & Transform
+- Use cleaning tools to:
+  - Remove nulls
+  - Remove duplicates
+- Apply transformations:
+  - Filter, Sort, Aggregate
+  - Use Undo/Redo as needed
 
-4. **Data Visualisation**
-    - Switch to the Visualisation tab
-    - Select chart type, columns for X and Y axes
-    - Click "Create Chart"
+### 📊 Analyse Data
+- Navigate to **Analysis** tab
+- Select columns and run:
+  - Summary statistics
+  - Correlation checks
 
-5. **Exporting Data**
-    - Click File -> Export Data
-    - Choose export format (CSV or JSON)
+### 📉 Visualise
+- Navigate to **Visualisation** tab
+- Select chart type and data columns
+- Click "Create Chart"
+
+### 💾 Export Data
+- `File` → `Export Data` → Choose format
+
+---
+## 🧰 Technologies Used
+
+| Tool              | Version     |
+|-------------------|-------------|
+| Java              | 17+         |
+| JavaFX            | 17.0.2      |
+| Gradle            | Bundled     |
+| JUnit             | 5.8.2       |
+| JFreeChart        | 1.5.3+      |
+| IDE               | IntelliJ IDEA |
+| Version Control   | Git         |
+
+## 📘 Assumptions
+
+- CSV/JSON files are syntactically correct
+- All data fits in memory (no streaming implemented)
+- Numeric data is required for most analysis/chart types
+- Undo/Redo applies only to transformations, not direct user edits
+
+---
+
+## 🧪 Testing
+
+- JUnit 5 used for unit testing
+- Core classes tested:
+  - `DataModel`
+  - `TransformationFactory`
+  - `AppConfig`
+  - `JsonImporter`
+- Tests include:
+  - Statistical calculations
+  - Data transformation correctness
+  - Edge case handling
+
 
 ## 2. Requirements (implemented priority order)
 1. Load and display tabular data (CSV/JSON)
@@ -255,4 +305,4 @@ classDiagram
 
 **Actual Hours Spent**: 42  
 **Artificial Intelligence Tools Used**: Chat GPT for design pattern implementation  
-
+MIT Licensed
