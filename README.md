@@ -3,7 +3,16 @@ This project allows users to load csv and json files, manipulate, analyse, and v
 
 ## 📌 Project Overview 
 This JavaFX-based application with a Gradle build allows users to **load**, **manipulate**, **analyse**, and **visualise** tabular data through a clean and intuitive user interface. 
-[![Build with Gradle](https://img.shields.io/badge/Build-Gradle-brightgreen.svg)](https://gradle.org/)
+
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=java&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?style=flat&logo=gradle&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-25A162?style=flat&logo=java&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IDE-IntelliJIDEA-blue?style=flat&logo=intellij-idea)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Last Commit](https://img.shields.io/github/last-commit/arysgithub/Data-Science-Manager)
 
 
  
