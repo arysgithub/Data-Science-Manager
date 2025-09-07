@@ -2,8 +2,11 @@
 This project allows users to load csv and json files, manipulate, analyse, and visualise data from the files and then export them, through an intuitive chart GUI 
 
 ## 📌 Project Overview 
-This JavaFX-based application allows users to **load**, **manipulate**, **analyse**, and **visualise** tabular data through a clean and intuitive user interface. 
+This JavaFX-based application with a Gradle build allows users to **load**, **manipulate**, **analyse**, and **visualise** tabular data through a clean and intuitive user interface. 
+[![Build with Gradle](https://img.shields.io/badge/Build-Gradle-brightgreen.svg)](https://gradle.org/)
+[![CI](https://github.com/arysgithub/Data-Science-Manager/actions/workflows/test.yml/badge.svg)](https://github.com/arysgithub/Data-Science-Manager/actions)
 
+ 
 It incorporates: 
 - **Singleton Pattern**: To ensure a single source of truth for application configuration.
 - **Observer Pattern**: To notify UI components when the underlying data changes.
