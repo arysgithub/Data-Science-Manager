@@ -1,79 +1,128 @@
-# Data Science Data Manager Coursework
+# 📊 Data-Science-Manager 
+This project allows users to load csv and json files, manipulate, analyse, and visualise data from the files and then export them, through an intuitive chart GUI 
 
-**Module Code**: CS1OP  
-**Assignment Report Title**: Project  
-**Student Number**: 33016258  
-**Actual Hours Spent**: 42  
-**Artificial Intelligence Tools Used**: Ghat GPT for design pattern implementation  
+## 📌 Project Overview 
+This JavaFX-based application allows users to **load**, **manipulate**, **analyse**, and **visualise** tabular data through a clean and intuitive user interface. 
 
-# Implementation Highlights
+It incorporates: 
+- **Singleton Pattern**: To ensure a single source of truth for application configuration.
+- **Observer Pattern**: To notify UI components when the underlying data changes.
+- **Factory Pattern**: For creating various types of data transformations dynamically.
+Features include dynamic table rendering, undo/redo support, real-time statistics, and chart visualisation using **JFreeChart**. A suite of **JUnit 5** unit tests has been added for validating core functionality.
 
-## 1. Introduction
+---
 
-This JavaFX-based coursework allows users to load, manipulate, analyse, and visualise data through an intuitive GUI. 
-The project uses the design patterns Singleton to maintain consistent application preferences across sections.
-Observer to update UI components on data changes and Factory to instantiate transformation objects.
-The system has a responsive UI, dynamic table generation, real-time statistics and chart visualisations powered by JFree Chart.
-Included is JUnit tests for all core components of the system  
-### Features:
+## 1. Introduction 
 
-1. **Data Import/Export**: 
-    - Support for CSV and JSON file formats with automatic type detection, validation and error handling
+This JavaFX-based coursework allows users to load, manipulate, analyse, and visualise data through an intuitive chart GUI. The project utilises the Singleton design pattern to maintain consistent application preferences across sections. Observer to update UI components on data changes and Factory to instantiate transformation objects. The system has a responsive UI, dynamic table generation, real-time statistics and chart visualisations powered by JFree Chart. Included is JUnit tests for all core components of the system 
 
-2. **Data Transformation**:
-    - Filtering
-    - Sorting
-    - Aggregation (Sum, Average, Count)
+## ✅ Key Features 
 
-3. **Data CLeaning**:
-    - Null value removal
-    - Duplicate removal
-    - Analyse Statistics for specific rows
+### 📂 Data Import & Export
+- Supports **CSV** and **JSON** formats
+- Automatic type detection, validation & error handling
 
-4. **Data Analysis**:
-    - Summary Statistics
-    - Mean, Median, SD, Count, Min/Max calculations
-    - Pearson correlation
+### 🔧 Data Transformation
+- Filtering rows by condition
+- Sorting columns (ascending/descending)
+- Aggregation (Sum, Average, Count)
+- Full **undo/redo** history for transformation actions
 
-5. **Data Charts**:
-    - Scatter
-    - Line chart
-    - Bar charts
-    - Histograms
+### 🧹 Data Cleaning
+- Null value removal
+- Duplicate row removal
+- Column statistics inspection
 
-6. **Undo/Redo Support**: Complete transformation history management
+### 📈 Data Analysis
+- Summary statistics (Mean, Median, Standard Deviation, Min, Max)
+- Pearson correlation coefficient between columns
 
-7. **Modern UI**: Tab-based interface for:
-    - Data viewing and editing
-    - Analysis
-    - Visualization
+### 📊 Data Visualisation
+- Chart types: **Scatter**, **Line**, **Bar**, **Histogram**
+- Chart generation via JFreeChart
 
-### How to use
-1. **Importing Data**
-    - Click File -> Import Data
-    - Select a CSV or JSON file
+### 🖥️ User Interface
+- Tab-based UI:
+  - **Data View**
+  - **Analysis**
+  - **Visualisation**
+- Live updates via observer pattern
+- Intuitive controls and responsive layout
 
-2. **Clean/Transform Data**
-   - Remove null values
-   - Remove duplicates
-   - View column statistics
-   - Apply transformations
-   - Undo/Redo
+---
 
-3. **Data Analysis**
-    - Switch to the Analysis tab
-    - Select columns for analysis
-    - Calculate correlation
-    - Generate summary statistics
+## 💻 Usage Guide
 
-4. **Data Visualisation**
-    - Switch to the Visualisation tab
-    - Select chart type, columns for X and Y axes
-    - Click "Create Chart"
+### 📁 Import Data
+- `File` → `Import Data` → Select `.csv` or `.json` file
 
-5. **Exporting Data**
-    - Click File -> Export Data
-    - Choose export format (CSV or JSON)
+### 🧽 Clean & Transform
+- Use cleaning tools to:
+  - Remove nulls
+  - Remove duplicates
+- Apply transformations:
+  - Filter, Sort, Aggregate
+  - Use Undo/Redo as needed
+
+### 📊 Analyse Data
+- Navigate to **Analysis** tab
+- Select columns and run:
+  - Summary statistics
+  - Correlation checks
+
+### 📉 Visualise
+- Navigate to **Visualisation** tab
+- Select chart type and data columns
+- Click "Create Chart"
+
+### 💾 Export Data
+- `File` → `Export Data` → Choose format
+
+---
+
+## 🧰 Technologies Used
+
+| Tool              | Version     |
+|-------------------|-------------|
+| Java              | 17+         |
+| JavaFX            | 17.0.2      |
+| Gradle            | Bundled     |
+| JUnit             | 5.8.2       |
+| JFreeChart        | 1.5.3+      |
+| IDE               | IntelliJ IDEA |
+| Version Control   | Git         |
+
+## 📐 Software Design Patterns Used
+
+- **Singleton Pattern**: Implemented in `AppConfig.java` for managing application-wide settings like chart type and last used directory.
+- **Observer Pattern**: `DataModel` notifies listeners (such as UI panes) when data is changed.
+- **Factory Pattern**: `TransformationFactory.java` dynamically creates `DataTransformation` implementations based on input.
+
+---
+
+## 📘 Assumptions
+
+- CSV/JSON files are syntactically correct
+- All data fits in memory (no streaming implemented)
+- Numeric data is required for most analysis/chart types
+- Undo/Redo applies only to transformations, not direct user edits
+
+---
+
+## 🧪 Testing
+
+- JUnit 5 used for unit testing
+- Core classes tested:
+  - `DataModel`
+  - `TransformationFactory`
+  - `AppConfig`
+  - `JsonImporter`
+- Tests include:
+  - Statistical calculations
+  - Data transformation correctness
+  - Edge case handling
+
+---
 
 ## 2. Requirements (implemented priority order)
 1. Load and display tabular data (CSV/JSON)
@@ -88,7 +137,7 @@ Included is JUnit tests for all core components of the system
 
 ```mermaid
 graph TD
-   Main --> |Uses|DataModel
+Main --> |Uses|DataModel
    Main --> DataViewPane
    Main --> AnalysisPane
    Main --> VisualisationPane
@@ -106,13 +155,19 @@ graph TD
    DataViewPane --> |Interacts|DataModel
    AnalysisPane --> |Interacts|DataModel
    VisualisationPane -->|Interacts| DataModel
+
 ```
+
+
+
+
+
 
 ### Mermaid Class Diagram
 
 ```mermaid
 classDiagram
-    class DataModel {
+ class DataModel {
        +List<Map<String, Object>> data
        +List<String> columnNames
        +void setData(List<Map<String, Object>>, List<String>)
@@ -183,15 +238,9 @@ classDiagram
     DataViewPane --> DataModel : interacts
     AnalysisPane --> DataModel : interacts
     VisualisationPane --> DataModel : interacts
+
+
 ```
-
-## 4. Assumptions
-    - CSV/JSON files are well-formed
-    - The application assumes data fits in memory
-    - JavaFX and IntelliJ is available on the target syste
-    - Chart types only display when numeric data is selected.
-    - Undo/Redo applies only to transformations, not data entry.
-
 
 ## 🚀 Setup Instructions
 ## Requirements
@@ -241,3 +290,6 @@ classDiagram
 - For Gradle sync issues, try `File -> Invalidate Caches / Restart`
 - If JavaFX libraries are missing, add the following to your build.gradle
 
+ **Actual Hours Spent**: 42 
+ **Artificial Intelligence Tools Used**: Chat GPT for design pattern implementation 
+ MIT Licensed
