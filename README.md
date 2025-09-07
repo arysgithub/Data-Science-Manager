@@ -11,8 +11,8 @@
 ## 1. Introduction
 
 This JavaFX-based coursework allows users to load, manipulate, analyse, and visualise data through an intuitive GUI. 
-The project uses the design patterns Singleton to maintain consistent applicatoin preferences across sections.
-Observer to update UI components on data changes and Factory to instantiate transfomation objects.
+The project uses the design patterns Singleton to maintain consistent application preferences across sections.
+Observer to update UI components on data changes and Factory to instantiate transformation objects.
 The system has a responsive UI, dynamic table generation, real-time statistics and chart visualisations powered by JFree Chart.
 Included is JUnit tests for all core components of the system  
 ### Features:
@@ -88,15 +88,24 @@ Included is JUnit tests for all core components of the system
 
 ```mermaid
 graph TD
-    Main -->|Uses| DataModel
-    Main --> DataViewPane
-    Main --> AnalysisPane
-    Main --> VisualisationPane
-    DataModel -->|Observer| UIComponents
-    TransformationFactory -->|Factory| DataTransformation
-    DataViewPane -->|Interacts| DataModel
-    AnalysisPane --> DataModel
-    VisualisationPane --> DataModel
+   Main --> |Uses|DataModel
+   Main --> DataViewPane
+   Main --> AnalysisPane
+   Main --> VisualisationPane
+   Main --> AppConfig
+
+   DataModel -->|Observer Pattern| UIComponents
+   DataModel --> |Interacts|TransformationFactory
+   DataModel --> DataExporter
+   DataImporter -->|Updates| DataModel
+   JsonImporter --> DataImporter
+
+   TransformationFactory -->|Factory Pattern| DataTransformation
+   AppConfig -->|Singleton Pattern| AppConfig
+
+   DataViewPane --> |Interacts|DataModel
+   AnalysisPane --> |Interacts|DataModel
+   VisualisationPane -->|Interacts| DataModel
 ```
 
 ### Mermaid Class Diagram
@@ -104,36 +113,76 @@ graph TD
 ```mermaid
 classDiagram
     class DataModel {
-        +List<Map<String, Object>> data
-        +List<String> columnNames
-        +void addListener(Runnable)
-        +void applyTransformation(DataTransformation)
-        +void undo()
-        +void redo()
+       +List<Map<String, Object>> data
+       +List<String> columnNames
+       +void setData(List<Map<String, Object>>, List<String>)
+       +List<Map<String, Object>> getData()
+       +void applyTransformation(DataTransformation)
+       +Map<String, Object> getBasicStats(String column)
+       +void undo()
+       +void redo()
+       +void addListener(Runnable)
     }
-
     class DataTransformation {
         <<interface>>
-        +List<Map<String, Object>> apply(List<Map<String, Object>>)
+        +void apply(DataModel)
+        +String getDescription()
     }
 
     class TransformationFactory {
-        +static DataTransformation createSortTransformation(...)
-        +static DataTransformation createFilterTransformation(...)
-        +static DataTransformation createAggregationTransformation(...)
+       +createSortTransformation(String column, boolean ascending)
+       +createFilterTransformation(String column, Predicate<Object> condition)
+       +createAggregationTransformation(String groupByColumn, String targetColumn, AggregationType type)
     }
 
-    class VisualisationPane
-    class AnalysisPane
-    class DataViewPane
-    class AppConfig
+    class DataImporter {
+        +static void importData(DataModel)
+    }
+
+    class DataExporter {
+        +static void exportData(DataModel)
+    }
+
+    class JsonImporter {
+        +static List<Map<String, Object>> importJson(File)
+        +static List<Map<String, Object>> importJsonString(String)
+    }
+
+    class AppConfig {
+        +static getInstance()
+        +getLastDirectory()
+        +setLastDirectory(String)
+        +getPreferredChartType()
+        +setPreferredChartType(String)
+    }
+
+    class Main
+    class DataViewPane{
+       +updateColumns()
+       +showFilterDialog()
+       +showSortDialog()
+    }
+    class AnalysisPane{
+       +generateSummary()
+       +calculateCorrelation()
+    }
+    class VisualisationPane{
+       +createChart()
+    }
 
     DataModel --> DataTransformation : applies
     DataModel --> "1..*" Runnable : observers
-    TransformationFactory --> DataTransformation
-    Main --> VisualisationPane
-    Main --> AnalysisPane
+    TransformationFactory --> DataTransformation : factory
+    DataImporter --> DataModel : modifies
+    DataExporter --> DataModel : reads
+    JsonImporter --> DataImporter : supports
+    Main --> AppConfig : Singleton
     Main --> DataViewPane
+    Main --> AnalysisPane
+    Main --> VisualisationPane
+    DataViewPane --> DataModel : interacts
+    AnalysisPane --> DataModel : interacts
+    VisualisationPane --> DataModel : interacts
 ```
 
 ## 4. Assumptions
